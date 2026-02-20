@@ -89,20 +89,58 @@ void showMenu() {
     cout << "==============================================\n";
 }
 
-// Still stubs
 void registerAppliance(Appliance appliances[], int& count) {
-    cout << "Register appliance coming in Part 3...\n";
+    cout << "\n--- Register Appliance ---\n";
+
+    if (count >= MAX_APPLIANCES) {
+        cout << "Cannot add more appliances (limit reached).\n";
+        return;
+    }
+
+    Appliance a;
+    a.name  = readNonEmptyLine("Appliance name: ");
+    a.watts = readPositiveDouble("Power rating (watts > 0): ");
+    a.hours = readHours("Daily usage hours (0 - 24): ");
+
+    appliances[count] = a;
+    count++;
+
+    cout << "Appliance registered successfully.\n";
 }
 
 void viewAppliances(const Appliance appliances[], int count) {
-    cout << "View appliances coming in Part 3...\n";
+    cout << "\n--- All Registered Appliances ---\n";
+
+    if (count == 0) {
+        cout << "No appliances registered yet.\n";
+        return;
+    }
+
+    cout << left
+         << setw(4)  << "#"
+         << setw(25) << "Name"
+         << setw(12) << "Watts"
+         << setw(12) << "Hours/day"
+         << "\n";
+
+    cout << "------------------------------------------------\n";
+
+    cout << fixed << setprecision(2);
+    for (int i = 0; i < count; i++) {
+        cout << left
+             << setw(4)  << (i + 1)
+             << setw(25) << appliances[i].name
+             << setw(12) << appliances[i].watts
+             << setw(12) << appliances[i].hours
+             << "\n";
+    }
 }
 
 int main() {
     Appliance appliances[MAX_APPLIANCES];
     int count = 0;
 
-    cout << "Electrical Load Monitoring System (Part 2)\n";
+    cout << "Electrical Load Monitoring System (Part 3)\n";
 
     while (true) {
         showMenu();
